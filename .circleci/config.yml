@@ -44,8 +44,8 @@ jobs:
           command: |
             docker build -f $(pwd)/dnf-game/Dockerfile -t $DOCKER_NAME/dnf-game:centos7-${CIRCLE_SHA1: 0: 7} $(pwd)/dnf-game/
             docker build -f $(pwd)/mysql56/Dockerfile -t $DOCKER_NAME/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7} $(pwd)/mysql56/
-            docker tag $DOCKER_NAME/dnf-game:centos7-${CIRCLE_SHA1: 0: 7} $DOCKER_NAME/dnf-game:centos7-latest
-            docker tag $DOCKER_NAME/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7} $DOCKER_NAME/dnf-mysql:5.6-latest
+            docker tag $DOCKER_NAME/dnf-game:centos7-${CIRCLE_SHA1: 0: 7} $DOCKER_NAME/dnf-game:centos7
+            docker tag $DOCKER_NAME/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7} $DOCKER_NAME/dnf-mysql:5.6
       - run:
           name: Archive Docker image
           command: |
@@ -56,8 +56,8 @@ jobs:
           command: |
             docker push $DOCKER_NAME/dnf-game:centos7-${CIRCLE_SHA1: 0: 7}
             docker push $DOCKER_NAME/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7}
-            docker push $DOCKER_NAME/dnf-game:centos7-latest
-            docker push $DOCKER_NAME/dnf-mysql:5.6-latest
+            docker push $DOCKER_NAME/dnf-game:centos7
+            docker push $DOCKER_NAME/dnf-mysql:5.6
       # 持久化root目录
       - persist_to_workspace:
           root: /root
