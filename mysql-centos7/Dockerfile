@@ -1,9 +1,9 @@
 # Base Image
 FROM 1995chen/centos:7.9
 
-MAINTAINER XanderYe
+MAINTAINER VictorBo
 
-# ALLOW_IP会使用内网IP网段，dnf-mysql和dnf-server使用同一个网桥时开启
+# ALLOW_IP会使用内网IP网段，dnf-mysql和dnf-game使用同一个网桥时开启
 ENV AUTO_ALLOW_IP=true
 # dnf服务端game用户连接mysql的ip白名单，公网开启
 ENV ALLOW_IP=127.0.0.1

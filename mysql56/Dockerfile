@@ -1,6 +1,6 @@
 FROM mysql:5.6.51
 
-MAINTAINER XanderYe
+MAINTAINER VictorBo
 
 COPY /init /init
 COPY init.sh /docker-entrypoint-initdb.d/

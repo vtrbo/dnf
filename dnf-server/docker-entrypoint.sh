@@ -9,7 +9,6 @@ rm -rf /root/GateStop
 rm -rf /root/run
 rm -rf /root/stop
 rm -rf /root/libhook.so
-rm -rf /root/Config.ini
 rm -rf /root/privatekey.pem
 rm -rf /dp2/df_game_r.lua
 rm -rf lib/libGeoIP.so.1
@@ -18,7 +17,7 @@ rm -rf lib/libGeoIP.so.1
 cp -r /home/template/neople /home/template/neople-tmp
 cp -r /home/template/root /home/template/root-tmp
 
-# 检查/data
+# 检查/game
 chmod +x /home/template/init/init.sh && /home/template/init/init.sh
 
 GAME_PASSWORD=${GAME_PASSWORD:0:8}
@@ -71,7 +70,7 @@ fi
 if $DP2;
 then
   # dp2脚本
-  cp -rf /data/dp2/* /dp2/
+  cp -rf /game/dp2/* /dp2/
   # 替换dp2 lib
   cp /dp2/libGeoIP.so.1 /lib/libGeoIP.so.1
   echo "enable dp2"
@@ -91,27 +90,16 @@ find /home/template/neople-tmp -type f -name "*.tbl" -print0 | xargs -0 sed -i "
 cp -rf /home/template/neople-tmp/* /home/neople
 rm -rf /home/template/neople-tmp
 # 复制版本文件
-cp /data/Script.pvf /home/neople/game/Script.pvf
+cp /game/Script.pvf /home/neople/game/Script.pvf
 chmod 777 /home/neople/game/Script.pvf
-cp /data/df_game_r /home/neople/game/df_game_r
+cp /game/df_game_r /home/neople/game/df_game_r
 chmod 777 /home/neople/game/df_game_r
-cp /data/publickey.pem /home/neople/game/
+cp /game/publickey.pem /home/neople/game/
 
 mv /home/template/root-tmp/* /root/
 rm -rf /home/template/root-tmp
 # 拷贝证书key
-cp /data/privatekey.pem /root/
-# 构建配置文件软链[不能使用硬链接, 硬链接不可跨设备]
-ln -s /data/Config.ini /root/Config.ini
-
-# 替换Config.ini中的GM用户名、密码、连接KEY、登录器版本[这里操作的对象是一个软链接不需要指定-type]
-sed -i --follow-symlinks "6c IP=$MYSQL_IP" `find /root -name "*.ini"`
-sed -i --follow-symlinks "7c Password=$GAME_PASSWORD" `find /root -name "*.ini"`
-sed -i --follow-symlinks "8c Port=$MYSQL_PORT" `find /root -name "*.ini"`
-sed -i --follow-symlinks "s/GM_ACCOUNT/$GM_ACCOUNT/g" `find /root -name "*.ini"`
-sed -i --follow-symlinks "s/GM_PASSWORD/$GM_PASSWORD/g" `find /root -name "*.ini"`
-sed -i --follow-symlinks "s/GM_CONNECT_KEY/$GM_CONNECT_KEY/g" `find /root -name "*.ini"`
-sed -i --follow-symlinks "s/GM_LANDER_VERSION/$GM_LANDER_VERSION/g" `find /root -name "*.ini"`
+cp /game/privatekey.pem /root/
 
 cd /root && chmod +x /root/*
 

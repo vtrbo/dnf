@@ -1,7 +1,7 @@
 # Base Image
 FROM centos:7.9.2009
 
-MAINTAINER XanderYe
+MAINTAINER VictorBo
 
 # 编译GeoIP
 ADD GeoIP-1.4.8.tgz /home

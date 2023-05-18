@@ -70,9 +70,9 @@ https://www.cnblogs.com/EasonJim/p/7777904.html
 
 ```shell
 dnf数据库mysql镜像
-docker pull xanderye/dnf-mysql:5.6 
+docker pull victorbo/dnf-mysql:5.6 
 dnf服务server镜像
-docker pull xanderye/dnf-server:centos7
+docker pull victorbo/dnf-game:centos7
 ```
 
 ### 简单启动
@@ -95,7 +95,7 @@ docker run -itd \
 -e MYSQL_ROOT_PASSWORD=88888888 \
 --name dnfmysql \
 --network=dnf \
-xanderye/dnf-mysql:5.6
+victorbo/dnf-mysql:5.6
 
 # 查看日志 (首次启动需要等待几十秒，出现一大堆数据库配置列表才是启动完成)
 docker logs dnfmysql
@@ -110,8 +110,6 @@ docker logs dnfmysql
 # AUTO_PUBLIC_IP为自动获取公网ip（小概率会失败，观察日志 get public ip 输出）
 # PUBLIC_IP为公网IP地址，如果在局域网部署则用局域网IP地址，按实际需要替换
 # DP2为dp2插件是否启用，默认禁用
-# GM_ACCOUNT为登录器用户名，建议替换
-# GM_PASSWORD为登录器密码，建议替换
 docker run -d \
 -e TZ=Asia/Shanghai \
 -e AUTO_MYSQL_IP=true \
@@ -122,12 +120,8 @@ docker run -d \
 -e AUTO_PUBLIC_IP=false \
 -e PUBLIC_IP=192.168.1.2 \
 -e DP2=false \
--e GM_ACCOUNT=gm_user \
--e GM_PASSWORD=123456 \
 -v /dnf/dnfserver/log:/home/neople/game/log \
--v /dnf/dnfserver/data:/data \
--p 7600:7600/tcp \
--p 881:881/tcp \
+-v /dnf/dnfserver/game:/game \
 -p 20303:20303/tcp -p 20303:20303/udp \
 -p 20403:20403/tcp -p 20403:20403/udp \
 -p 40403:40403/tcp -p 40403:40403/udp \
@@ -149,7 +143,7 @@ docker run -d \
 --cpus=1 --memory=1g --memory-swap=-1 --shm-size=8g \
 --name dnfserver \
 --network=dnf \
-xanderye/dnf-server:centos7
+victorbo/dnf-game:centos7
 ```
 
 ### docker-compose启动
@@ -233,14 +227,6 @@ AUTO_PUBLIC_IP
 PUBLIC_IP
 # dp2插件
 DP2
-# GM管理员账号
-GM_ACCOUNT
-# GM管理员密码
-GM_PASSWORD
-# GM连接KEY(自定以密钥请使用网关生成的密钥，因为密钥有格式限制，不符合格式的密钥会导致登录器一致卡在网关连接那里)
-GM_CONNECT_KEY
-# GM登录器版本
-GM_LANDER_VERSION
 ```
 Windows高版本统一补丁用户无法进入频道，需要添加hosts  
 PUBLIC_IP(你的服务器IP)  start.dnf.tw

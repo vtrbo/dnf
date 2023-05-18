@@ -1,7 +1,7 @@
 # Base Image
 FROM centos:7.9.2009
 
-MAINTAINER XanderYe
+MAINTAINER VictorBo
 
 # 添加依赖库
 ADD lib.tgz /

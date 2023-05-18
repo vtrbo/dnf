@@ -14,7 +14,7 @@
 
 ## DP2插件说明
 
-持久化 ./data/dp2/ ，映射到容器中 /dp2/ <br/>
+持久化 ./game/dp2/ ，映射到容器中 /dp2/ <br/>
 df_game_r.lua 中编写插件，调用到脚本就将脚本放入 script 中。<br/>
 容器集成了 mysql 客户端，脚本中需要执行sql命令时，命令为 `mysql -h127.0.0.1 -ugame -p$GAME_PASSWORD`。
 
@@ -35,11 +35,3 @@ AUTO_PUBLIC_IP: 自动获取公网ip
 PUBLIC_IP: 你的ip地址
 
 DP2: dp2插件
-
-GM_ACCOUNT: GM账户名
-
-GM_PASSWORD: GM密码
-
-GM_CONNECT_KEY: 网关KEY
-
-GM_LANDER_VERSION: 网关版本

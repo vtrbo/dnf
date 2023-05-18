@@ -8,7 +8,7 @@ networks:
 
 services:
   dnfmysql:
-    image: xanderye/dnf-mysql:5.6
+    image: victorbo/dnf-mysql:5.6
     ports:
       - 3000:3306
     environment:
@@ -25,7 +25,7 @@ services:
       - ./dnfmysql/mysql:/var/lib/mysql
     container_name: dnfmysql
   dnfserver:
-    image: xanderye/dnf-server:centos7
+    image: victorbo/dnf-game:centos7
     depends_on:
       - dnfmysql
     environment:
@@ -46,10 +46,6 @@ services:
       - PUBLIC_IP=127.0.0.1
       # DP2插件
       - DP2=false
-      - GM_ACCOUNT=gm_user
-      - GM_PASSWORD=123456
-      - GM_CONNECT_KEY=763WXRBW3PFTC3IXPFWH
-      - GM_LANDER_VERSION=20180307
     shm_size: 8g
     memswap_limit: -1
     mem_limit: 1g
@@ -61,8 +57,6 @@ services:
       - dnf
     restart: unless-stopped
     ports:
-      - 7600:7600/tcp       # DnfGateServe 网关
-      - 881:881/tcp         # DnfGateServe 网关
       - 20303:20303/tcp     # df_dbmw_r
       - 20303:20303/udp     # df_dbmw_r
       - 20403:20403/tcp     # df_dbmw_r
@@ -91,6 +85,6 @@ services:
       - 30503:30503/udp     # df_statics_r
       - 11052:11052/udp     # df_game_r
     volumes:
-      - ./dnfserver/data:/data
+      - ./dnfserver/game:/game
       - ./dnfserver/log:/home/neople/game/log
     container_name: dnfserver

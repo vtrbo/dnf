@@ -42,22 +42,22 @@ jobs:
       - run:
           name: Build Image
           command: |
-            docker build -f $(pwd)/dnf-server/Dockerfile -t xanderye/dnf-server:centos7-${CIRCLE_SHA1: 0: 7} $(pwd)/dnf-server/
-            docker build -f $(pwd)/mysql56/Dockerfile -t xanderye/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7} $(pwd)/mysql56/
-            docker tag xanderye/dnf-server:centos7-${CIRCLE_SHA1: 0: 7} xanderye/dnf-server:centos7-latest
-            docker tag xanderye/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7} xanderye/dnf-mysql:5.6-latest
+            docker build -f $(pwd)/dnf-server/Dockerfile -t $DOCKER_NAME/dnf-game:centos7-${CIRCLE_SHA1: 0: 7} $(pwd)/dnf-game/
+            docker build -f $(pwd)/mysql56/Dockerfile -t $DOCKER_NAME/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7} $(pwd)/mysql56/
+            docker tag $DOCKER_NAME/dnf-game:centos7-${CIRCLE_SHA1: 0: 7} $DOCKER_NAME/dnf-game:centos7-latest
+            docker tag $DOCKER_NAME/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7} $DOCKER_NAME/dnf-mysql:5.6-latest
       - run:
           name: Archive Docker image
           command: |
-            docker save -o dnf-server.tar xanderye/dnf-server:centos7-${CIRCLE_SHA1: 0: 7}
-            docker save -o dnf-mysql.tar xanderye/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7}
+            docker save -o dnf-game.tar $DOCKER_NAME/dnf-game:centos7-${CIRCLE_SHA1: 0: 7}
+            docker save -o dnf-mysql.tar $DOCKER_NAME/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7}
       - run:
           name: Push Image
           command: |
-            docker push xanderye/dnf-server:centos7-${CIRCLE_SHA1: 0: 7}
-            docker push xanderye/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7}
-            docker push xanderye/dnf-server:centos7-latest
-            docker push xanderye/dnf-mysql:5.6-latest
+            docker push $DOCKER_NAME/dnf-game:centos7-${CIRCLE_SHA1: 0: 7}
+            docker push $DOCKER_NAME/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7}
+            docker push $DOCKER_NAME/dnf-game:centos7-latest
+            docker push $DOCKER_NAME/dnf-mysql:5.6-latest
       # 持久化root目录
       - persist_to_workspace:
           root: /root
@@ -74,16 +74,16 @@ jobs:
       - run:
           name: Load archived Docker image
           command: |
-            docker load -i dnf-server.tar
+            docker load -i dnf-game.tar
             docker load -i dnf-mysql.tar
       - run:
           name: Tag & Push Image
           command: |
             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-            docker tag xanderye/dnf-server:centos7-${CIRCLE_SHA1: 0: 7} xanderye/dnf-server:centos7-$CIRCLE_TAG
-            docker push xanderye/dnf-server:centos7-$CIRCLE_TAG
-            docker tag xanderye/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7} xanderye/dnf-mysql:5.6-$CIRCLE_TAG
-            docker push xanderye/dnf-mysql:5.6-$CIRCLE_TAG
+            docker tag $DOCKER_NAME/dnf-game:centos7-${CIRCLE_SHA1: 0: 7} $DOCKER_NAME/dnf-game:centos7-$CIRCLE_TAG
+            docker push $DOCKER_NAME/dnf-game:centos7-$CIRCLE_TAG
+            docker tag $DOCKER_NAME/dnf-mysql:5.6-${CIRCLE_SHA1: 0: 7} $DOCKER_NAME/dnf-mysql:5.6-$CIRCLE_TAG
+            docker push $DOCKER_NAME/dnf-mysql:5.6-$CIRCLE_TAG
 
 workflows:
   staging:

@@ -2,9 +2,6 @@ find /home/neople/ -name '*.log' -type f -print -exec rm -f {} \;
 find /home/neople/ -name '*.pid' -type f -print -exec rm -f {} \;
 find /home/neople/ -name 'core.*' -type f -print -exec rm -f {} \;
 
-cd /root
-./GateRestart
-
 cd /home/neople/stun
 chmod 777 *
 rm -f  /home/neople/stun/pid/*.pid

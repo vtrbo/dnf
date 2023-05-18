@@ -2,7 +2,7 @@ version: "2.3"
 
 services:
   dnfmysql:
-    image: xanderye/dnf-mysql:5.6
+    image: victorbo/dnf-mysql:5.6
     ports:
       - 3306:3306
     environment:
