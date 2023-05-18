@@ -3,14 +3,11 @@ rm -rf /home/template/neople-tmp
 rm -rf /home/template/root-tmp
 mkdir -p /home/neople
 # 清理root下文件
-rm -rf /root/DnfGateServer
-rm -rf /root/GateRestart
-rm -rf /root/GateStop
 rm -rf /root/run
 rm -rf /root/stop
 rm -rf /root/libhook.so
 rm -rf /root/privatekey.pem
-rm -rf /dp2/df_game_r.lua
+rm -rf /dp2/*
 rm -rf lib/libGeoIP.so.1
 
 # 复制待使用文件

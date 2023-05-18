@@ -120,8 +120,8 @@ docker run -d \
 -e AUTO_PUBLIC_IP=false \
 -e PUBLIC_IP=192.168.1.2 \
 -e DP2=false \
--v /dnf/dnfserver/log:/home/neople/game/log \
--v /dnf/dnfserver/game:/game \
+-v /dnf/dnfgame/log:/home/neople/game/log \
+-v /dnf/dnfgame/game:/game \
 -p 20303:20303/tcp -p 20303:20303/udp \
 -p 20403:20403/tcp -p 20403:20403/udp \
 -p 40403:40403/tcp -p 40403:40403/udp \
@@ -140,8 +140,8 @@ docker run -d \
 -p 2311-2313:2311-2313/udp \
 -p 30503:30503/udp \
 -p 11052:11052/udp \
---cpus=1 --memory=1g --memory-swap=-1 --shm-size=8g \
---name dnfserver \
+--cpus=1 --memory=1g --memory-swap=-1 --shm-size=12g \
+--name dnfgame \
 --network=dnf \
 victorbo/dnf-game:centos7
 ```
@@ -198,7 +198,7 @@ root 22514 13398 0 20:53 pts/0 00:00:00 grep --color=auto df_game
 重启服务命令
 
 ```shell
-docker restart dnfserver
+docker restart dnfgame
 ```
 
 ### 默认的网关信息
@@ -214,8 +214,8 @@ GM密码: 123456
 当容器用最新的环境变量启动时，以下所有的环境变量，包括数据库root密码都会立即生效
 需要更新配置时只需要先停止服务
 ```shell
-docker stop dnfserver
-docker rm dnfserver
+docker stop dnfgame
+docker rm dnfgame
 ```
 然后用最新的环境变量设置启动服务即可
 ```shell

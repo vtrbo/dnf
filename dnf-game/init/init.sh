@@ -40,3 +40,13 @@ if [ ! -f "/game/publickey.pem" ];then
 else
   echo "publickey.pem has already initialized, do nothing!"
 fi
+
+# 判断dp2文件是否初始化过
+if [ ! -d "/game/dp2" ];then
+  # 拷贝版本文件到持久化目录
+  mkdir -p /game/dp2/
+  cp /home/template/init/df_game_r.lua /game/dp2/
+  echo "init df_game_r.lua success"
+else
+  echo "df_game_r.lua has already initialized, do nothing!"
+fi

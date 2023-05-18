@@ -1,7 +1,7 @@
 version: "2.3"
 
 services:
-  dnfserver:
+  dnfgame:
     image: victorbo/dnf-game:centos7
     environment:
       - TZ=Asia/Shanghai
@@ -20,8 +20,8 @@ services:
       # 这里填写你的IP地址
       - PUBLIC_IP=127.0.0.1
       # DP2插件
-      - DP2=false
-    shm_size: 8g
+      - DP2=true
+    shm_size: 12g
     memswap_limit: -1
     mem_limit: 1g
     # windows下生效
@@ -61,4 +61,4 @@ services:
     volumes:
       - ./game:/game
       - ./log:/home/neople/game/log
-    container_name: dnfserver
+    container_name: dnfgame
